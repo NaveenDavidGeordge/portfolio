@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+body{
+    background-color: var(--theme-bg-color);
+}
+
+:root{
+    --theme-bg-color : #0f172b;
+    --theme-text-color: #90a1b9;
+    --theme-border-color : #314158;
+}
+
+@theme {
+  --font-code: "Fira Code", monospace;
+  --color-theme: var(--theme-bg-color);
+  --color-theme-foreground: var(--theme-text-color);
+  --color-theme-border-color : var(--theme-border-color);
+
+}
+html, body {
+  font-family: var(--font-code);
+  color: var(--theme-text-color);
+}
