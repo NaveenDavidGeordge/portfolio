@@ -13,7 +13,7 @@ const Mainlayout = () => {
       <div className='h-screen p-1'>
         <div className='h-full flex flex flex-col bg-theme border-solid border rounded-md border-theme-border-color'>
         <Newhome></Newhome>
-        <div className=' flex-1'>
+        <div className=' flex-1 main-container' >
             <Outlet></Outlet>
         </div>
         <Footer></Footer>

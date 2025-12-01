@@ -4,6 +4,7 @@ import { createContext } from "react";
 export const Appcontext = createContext();
 
 const CommonContext = (props)=>{
+    
     const commonInfo = {
         name : "Naveen Kumar",
         phone : 9952201603,
