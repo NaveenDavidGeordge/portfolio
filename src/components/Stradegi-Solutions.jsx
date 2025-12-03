@@ -6,7 +6,7 @@ const StradegiSolutions =()=>{
     </h2>
     <h3>
 
-Technical Analyst (Mar 2024 – Present)
+Technical Analyst (Mar 2024 – Nov 2025)
     </h3>
     <br />
     <p>
