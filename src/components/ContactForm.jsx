@@ -1,6 +1,9 @@
 import { useState, useRef } from "react";
 import { TextField, Button, Box } from "@mui/material";
 import { getMessages,postMessage } from "../common/api";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
 
 
 export default function ContactForm({ onFormChange }) {
@@ -13,9 +16,16 @@ export default function ContactForm({ onFormChange }) {
   const [errors, setErrors] = useState({});
   const [dataList, setDataList] = useState([]);
   const debounceRef = useRef(null);
+  const [snack, setSnack] = useState({
+  open: false,
+  message: "",
+  type: "success"   // "success" | "error" | "warning" | "info"
+});
+
 
   const handleChange = (e) => {
     const updated = { ...form, [e.target.name]: e.target.value };
+
     setForm(updated);
     if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => {
@@ -53,12 +63,23 @@ export default function ContactForm({ onFormChange }) {
     // Notify parent after submission
     const success = await postMessage(form);
     if (success) {
-      alert("Message saved!");
+      // alert("Message saved!");
+      setSnack({
+    open: true,
+    message: "Message saved!",
+    type: "success"
+  });
+
       setForm({ name: "", email: "", message: "" });
       if (onFormChange) onFormChange({});
       console.log('from api ',getMessages())
     } else {
-      alert("Failed to save message");
+      // alert("Failed to save message");
+      setSnack({
+    open: true,
+    message: "Failed to save message",
+    type: "error"
+  });
     }
   };
 
@@ -127,6 +148,22 @@ export default function ContactForm({ onFormChange }) {
       <Button variant="outlined" onClick={handleSubmit}>
         Submit
       </Button>
+      <Snackbar
+            open={snack.open}
+            autoHideDuration={3000}
+            onClose={() => setSnack({ ...snack, open: false })}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <MuiAlert 
+              onClose={() => setSnack({ ...snack, open: false })} 
+              severity={snack.type} 
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              {snack.message}
+            </MuiAlert>
+          </Snackbar>
+
     </Box>
   );
 }

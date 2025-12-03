@@ -110,23 +110,9 @@ const ContactPage = () => {
             <ContactForm onFormChange={handleChildData} />
           </div>
           <div className="col-span-2 lg:col-span-1">
-             {/* <pre>{JSON.stringify(childFormData, null, 2)}</pre> */}
-              {/* <pre>
-         <code>
-          {code.split("\n").map((line, index) => (
-            <div key={index} className="code-line">
-              <span className="line-number">{index + 1}</span>
-              <span
-                className="line-content"
-                dangerouslySetInnerHTML={{ __html: highlight(line) }}
-              />
-            </div>
-          ))}
-        </code>
-      </pre> */}
-       <SyntaxHighlighter
+           <SyntaxHighlighter
         language="javascript"
-        style={vscDarkPlus}   // VS Code dark theme
+        style={vscDarkPlus}  
         showLineNumbers
         wrapLines
          customStyle={{

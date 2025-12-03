@@ -11,22 +11,22 @@ const ProjectPage = () => {
                     title : "Java",
                     icon : "java",
                     projects :[
-                      {name :"DSA Problems", description : "Solved over 50+ problems related on Arrays, Queue, Stack and Tree",},
-                      {name : "Booking Systems", description : "Console based java application releated on booking tickets in Flights/ Travels" },
-                      {name : "Admin Application", description : "Springboot application on management admin process for an organization"}
+                      {name :"DSA Problems", description : "Solved over 50+ problems related on Arrays, Queue, Stack and Tree", icon : '/javaIcon.png'},
+                      {name : "Booking Systems", description : "Console based java application releated on booking tickets in Flights/ Travels",icon : '/javaIcon.png' },
+                      {name : "Admin Application", description : "Springboot application on management admin process for an organization",icon : '/javaIcon.png'}
                     ]
                   },{
                     title : "React Js",
                     icon : "react",
                     projects : [
-                      {name:"Portfolio", description : "Simple react applicaiton to build personal portfolio", icon : "profile-portfolio-icon"},
-                      {name : "Adminto", description : "Detailed dashboard based application for managing admin operations", icon : "adminto-icon"},
-                      {name :"Ignira", description : "Backoffice application for event company managing entire management operations", icons : "ignira-icon"}
+                      {name:"Portfolio", description : "Simple react applicaiton to build personal portfolio", icon : "reactIcon.png"},
+                      {name : "Adminto", description : "Detailed dashboard based application for managing admin operations", icon : "reactIcon.png"},
+                      {name :"Ignira", description : "Backoffice application for event company managing entire management operations", icon : "reactIcon.png"}
                     ]
                   },{
                     title : "Angular Js",
                     icon : "angular",
-                    projects : [{name : "nFlows",description :" Development on no-code platform application "}]
+                    projects : [{name : "nFlows",description :" Development on no-code platform application ",icon:'nflowsIcon.svg'},]
                   }
   ];
 
@@ -62,41 +62,44 @@ const ProjectPage = () => {
                         </Accordion>
         </div>
         <div className="col-span-12 lg:col-span-10 max-h-full overflow-hidden">
-                <div className='border-b flex  border-theme-border-color h-[48px]'>
-                        {activeProjectMenus.map((menu,index)=>{
+                <div className='border-b flex hidden  border-theme-border-color h-[48px]'>
+                        {/* {activeProjectMenus.map((menu,index)=>{
                           return <div className='p-2' key={index}>{menu.title}</div>
                         })
-                        }
+                        } */}
                 </div>
                 {activeProjectMenus.length ? 
-                  <div className="p-2 grid grid-cols-3 overflow-auto max-h-[calc(100% - 50px)]" style={{maxHeight:"calc(100% - 48px)"}}>
-                    {activeProjectMenus.map((menu,index)=>{
-                      
+                
+                  <div className="p-2 grid grid-cols-3 overflow-auto max-h-[calc(100% - 50px)]" style={{maxHeight:"calc(100% - 0px)"}}>
+                    
+                        
+                    {
+                    activeProjectMenus.map((menu,index)=>{
+                     
+
                       if(menu.projects){
-                        let projectIndex = 1;
                        return  menu.projects.map((project,i)=>{
-
                           return (
-                            <div className="col-span-1 p-1">
+                            <div className="col-span-3 lg:col-span-1  p-1" key={i}>
                           <div class=" text-md mb-3">
-                            <span className='font-semibold tracking-wide text-indigo-500'>Project-{projectIndex++} </span> // {project.name}</div>
-                          <div class="overflow-hidden border border-theme-border-color rounded-xl bg-[#060910ab] shadow-md ">
+                            <span className='font-semibold tracking-wide text-indigo-500'>Project -</span> {project.name}</div>
+                          <div class="overflow-hidden project-card border flex flex-col border-theme-border-color rounded-xl bg-[#060910ab] shadow-md ">
 
-                            <div class="">
                              <img
-                                  class="h-45 w-full object-cover bg-[#27314b52] "
-                                  src="/img/building.jpg"
+                                  class="h-45 w-full object-contain bg-[#27314b52] "
+                                  src={project.icon?? ''  }
                                   alt={project.name}
                                 />
-                              <div class="p-5">
+                              <div class="p-5 flex-1  flex flex-col justify-between ">
                                 
                                 <p class="mt-2 text-gray-500">
                                   {project.description}
                                 </p>
-                                <button className="btn cursor-pointer my-2">View Project</button>
+                               <div>
+                                 <button className="btn cursor-pointer my-2">View Project</button>
+                               </div>
                               </div>
                             </div>
-                          </div>
                         </div>
                           )
                         })

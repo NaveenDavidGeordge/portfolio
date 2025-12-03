@@ -322,3 +322,6 @@ nav a.active {
       min-height: unset;
   }
 }
+.project-card{
+  height:calc(100% - 35px);
+}

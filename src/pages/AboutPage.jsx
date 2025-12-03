@@ -18,6 +18,9 @@ import ForumIcon from '@mui/icons-material/Forum';
 import { useNavigate } from 'react-router-dom';
 import { Mail } from '@mui/icons-material';
 import { Phone } from '@mui/icons-material';
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+
 const AboutPage = () => {
   const ContextOptions = useContext(Appcontext)
   const aboutPageMenus = [{
@@ -45,7 +48,7 @@ const AboutPage = () => {
             name : "Alphabet Techs",
             icon : 'AT',
             routingLink : 'alphabet-techs'
-          },
+          },   
           {
             name : "Stradegi Solutions",
             icon : 'SS',
@@ -79,11 +82,14 @@ const AboutPage = () => {
   const [pageLines,setPageLines]=useState([]);
   useEffect(()=>{
    setTimeout(() => {
-     let lineCount = parseInt(definitionContainer.current.offsetHeight/24)-1;
+     let lineCount = parseInt(definitionContainer.current.scrollHeight/24)-1;
     setPageLines(Array.from({length : lineCount}).map((a,i)=>i+1))
    }, 500);
 
   },[location.pathname])
+
+  const showCaseCode = `
+  `
   
   function handleActiveMenu(menuName){
     if(!activeMenus.find(menu=>menu==menuName)){
@@ -150,7 +156,7 @@ const AboutPage = () => {
                                         {
                                           <NavLink 
                                             to={m.routingLink} title={m.name}
-                                            onClick={()=>m.disableRouting?'' :handleActiveMenu(m.name)} 
+                                            onClick={()=>m.disableRouting?'' :handleActiveMenu(m.routingLink)} 
                                           >
                                             {/* <FolderIcon fontSize="sm" htmlColor={submenu.iconColor} />  */}
                                             {m.icon}
@@ -189,7 +195,7 @@ const AboutPage = () => {
       <div className='col-span-12 lg:col-span-10 flex lg:flex-col  overflow-hidden'>
               {
                       activeMenus.length ?
-                      <div className='flex border-b w-full border-theme-border-color'>
+                      <div className='border-b w-full hidden lg:flex border-theme-border-color'>
                         {activeMenus.map((menu,index)=>{
                           return(<>
                             <div key={index} className="px-3 py-2 h-[47px] flex items-center justify-between  border-r border-theme-border-color sub-menu-item">
@@ -212,7 +218,50 @@ const AboutPage = () => {
                           <Outlet></Outlet>
                         </div>
                       </div>
-                      <div className="col-span-2 lg:col-span-1 p-2">Div 2</div>
+                      <div className="col-span-2 lg:col-span-1 hidden lg:block p-0 m-0 overflow-auto">        
+                        <SyntaxHighlighter
+        language="javascript"
+        style={vscDarkPlus}  
+        showLineNumbers
+        wrapLines
+        className={"p-0"}
+  >
+{`/**
+ * Meet Naveen Kumar
+ * A developer built from curiosity, creativity, and a little creative chaos.
+ */
+
+class Developer {
+  constructor() {
+    this.name = "Naveen Kumar";
+    this.education = "B.E (Bachelor of Engineering)";
+    this.traits = ["curious", "calm", "creative", "team-friendly"];
+    this.hobbies = ["bikes", "cars","music","video editing","coding vibes","cinema","cooking","spiritual learning"];
+  }
+
+  code() {
+    return "Writing clean UI, breaking bugs, fixing bugs… and sometimes debugging the debugging.";
+  }
+
+  vibe() {
+    return "If music is on, productivity mode is activated.";
+  }
+
+  weekend() {
+    return "Watching a film, editing videos, experimenting in the kitchen, or exploring bike rides.";
+  }
+
+  spiritualMode() {
+    return "Staying grounded, learning, and evolving every single day.";
+  }
+}
+
+const naveen = new Developer();
+`
+}
+  </SyntaxHighlighter>
+
+      </div>
                     </div>
        </div>
 
