@@ -1,7 +1,7 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/16/solid';
 import ContactForm from '../components/ContactForm';
 import { Appcontext } from '../services/Common.service';
-import { useContext, useState } from 'react';
+import { useState, useContext } from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -17,6 +17,7 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const ContactPage = () => {
   const ContextOptions = useContext(Appcontext);
+  console.log('contextopeiotn' , ContextOptions)
   let svgIcon = <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-caret-down-fill" style={{marginTop:"-2px"}} viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"></path></svg>
 
   const [childFormData, setChildFormData] = useState({});
@@ -27,15 +28,16 @@ const ContactPage = () => {
 
    const code = `const button = document.getElementById("#submitResponse");
 
+
    const message = {
       name : "${childFormData.name??""}",
       email : "${childFormData.email??""}",
       message : "${childFormData.message??""}",
       date and time : ${new Date().toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-})}
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
    }
 
    button.addEventListener('click',()=>{
@@ -48,7 +50,7 @@ const ContactPage = () => {
   return (
     <>
     <div className="grid grid-cols-12 h-full">
-      <div className="col-span-12 md:col-span-2 border-r border-theme-border-color ">
+      <div className="col-span-12 lg:col-span-2 border-r border-theme-border-color ">
         
         <Accordion defaultExpanded>
                   <AccordionSummary
@@ -85,22 +87,29 @@ const ContactPage = () => {
                   </AccordionSummary>
                   <AccordionDetails>
                     <ul>
+                      {
+                        Object.entries(ContextOptions.profileURL).map(([key,value],index)=>{
+                            return <li>
+                                        <Link className='flex gap-2' to={value} > 
+                                            <ArrowTopRightOnSquareIcon width={15}  className='me-2 inline'></ArrowTopRightOnSquareIcon>
+                                          {key}
+                                        </Link>
+                                    </li>
+                        })
+                      }
                       <li>
-                        <Link className='flex gap-2'> 
-                          <ArrowTopRightOnSquareIcon width={15}></ArrowTopRightOnSquareIcon>
-                          instagram
-                        </Link>
+                        
                       </li>
                     </ul>
                   </AccordionDetails>  
               </Accordion>
       </div>
-      <div className="col-span-12 md:col-span-10">
+      <div className="col-span-12 lg:col-span-10">
         <div className="grid grid-cols-2 h-full">
           <div className="col-span-2 flex items-center justify-center lg:col-span-1 border-0 lg:border-r border-theme-border-color">
             <ContactForm onFormChange={handleChildData} />
           </div>
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
              {/* <pre>{JSON.stringify(childFormData, null, 2)}</pre> */}
               {/* <pre>
          <code>

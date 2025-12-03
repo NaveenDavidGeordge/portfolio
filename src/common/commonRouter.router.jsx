@@ -8,6 +8,9 @@ import HomePage from '../pages/HomePage';
 import InterestAbout from '../components/Interest-About';
 import BioAbout from '../components/Bio-About';
 import EducationAbout from '../components/Education-About';
+import AlphabetTechs from '../components/Alphabet-Techs';
+import StradegiSolutions from '../components/Stradegi-Solutions';
+import ExperienceAbout from '../components/ExperienceAbout';
 
 
 const CommonRouter = ()=>{
@@ -19,6 +22,9 @@ const CommonRouter = ()=>{
             <Route path='bio' element={<BioAbout />}></Route>
             <Route path='interest' element={<InterestAbout /> }></Route>
             <Route path='education' element={<EducationAbout />}></Route>
+            <Route path='experience' element={<ExperienceAbout />}></Route>
+              <Route path='alphabet-techs' element={<AlphabetTechs />}></Route>
+              <Route path='stradegi-solutions' element={<StradegiSolutions />}></Route>
           </Route>
           <Route  path='projects' element={<ProjectPage />}></Route>
           <Route  path='rough' element={<Home />}></Route>

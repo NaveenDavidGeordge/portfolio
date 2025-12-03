@@ -11,10 +11,10 @@ const CommonContext = (props)=>{
         mail: "naveenkumar592.t@gmail.com",
     };
     const profileURL = {
-        instagram : "instagram",
-        linkedIn : "linkedIN url",
-        leetcode : " leetcode url ",
-        gitHub : " github code "
+        instagram : "https://www.instagram.com/naveen_david_geordge",
+        linkedIn : "https://www.linkedin.com/in/naveen-kumar-tamizh-murugan/",
+        leetcode : "https://leetcode.com/u/9yJQQjq15Q/",
+        gitHub : "https://github.com/NaveenDavidGeordge/ "
     }
         return(
             <Appcontext.Provider value={{profileURL,commonInfo}}>
@@ -22,4 +22,5 @@ const CommonContext = (props)=>{
             </Appcontext.Provider>
         )
 }
+
 export default CommonContext

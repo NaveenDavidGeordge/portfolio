@@ -16,37 +16,55 @@ import TerminalIcon from '@mui/icons-material/Terminal';
 import ExtensionIcon from '@mui/icons-material/Extension';
 import ForumIcon from '@mui/icons-material/Forum';
 import { useNavigate } from 'react-router-dom';
+import { Mail } from '@mui/icons-material';
+import { Phone } from '@mui/icons-material';
 const AboutPage = () => {
   const ContextOptions = useContext(Appcontext)
   const aboutPageMenus = [{
         name : "info",
         submenu : [{
             name: "bio",
-            icon : "FolderIcon",
+            icon : <FolderIcon fontSize="sm" htmlColor={"lightpink"} /> ,
             iconColor : "lightpink",
             routingLink : "bio"
         },{
             name : "interest",
-            icon : "FolderIcon",
+            icon : <FolderIcon fontSize="sm" htmlColor={"aliceblue"} /> ,
             iconColor : "aliceblue",
             routingLink : "interest"
         },{
             name : "education",
-            icon : "FolderIcon",
+            icon : <FolderIcon fontSize="sm" htmlColor={"lightyellow"} /> ,
             iconColor : "lightyellow",
-            routingLink : "education"
-        }]
+            routingLink : "education",
+        },{
+          name : "experience",
+          icon : <FolderIcon fontSize="sm" htmlColor={"skyblue"} />,
+          routingLink : "experience",
+          submenu : [{
+            name : "Alphabet Techs",
+            icon : 'AT',
+            routingLink : 'alphabet-techs'
+          },
+          {
+            name : "Stradegi Solutions",
+            icon : 'SS',
+            routingLink : 'stradegi-solutions'
+          }
+        ]
+        }
+      ]
     },{
       name : "contact",
       submenu : [{
         name : "naveenkumar592.t@gmail.com",
-        icon : "mail",
+        icon : <Mail fontSize="sm"/> ,
         iconColor : "currentColor",
         routingLink : "mailto: naveenkumar592.t@gmail.com",
         disableRouting : true
       },{
         name : "9952201603",
-        icon : "mobile",
+        icon : <Phone fontSize='sm' />,
         iconColor : "currentColor",
         routingLink : "tel:9952201603",
         disableRouting : true
@@ -60,8 +78,10 @@ const AboutPage = () => {
   const definitionContainer = useRef()
   const [pageLines,setPageLines]=useState([]);
   useEffect(()=>{
-    let lineCount = parseInt(definitionContainer.current.offsetHeight/24)-1;
+   setTimeout(() => {
+     let lineCount = parseInt(definitionContainer.current.offsetHeight/24)-1;
     setPageLines(Array.from({length : lineCount}).map((a,i)=>i+1))
+   }, 500);
 
   },[location.pathname])
   
@@ -83,15 +103,15 @@ const AboutPage = () => {
 
   return (
    <>
-   <div className='flex  w-full h-full '>
-    <div className='w-[208px] max-w-[208px] flex h-full border-theme-border-color border-r ' >
-      <div className='w-10 border-r code-editor-icons flex flex-columns gap-3 border-theme-border-color '>
-        <ExtensionIcon />
-        <TerminalIcon htmlColor='#fff' />
-        <ForumIcon />
-      </div>
-      <div className="flex-1 overflow-hidden">
-        {
+   <div className='grid grid-cols-12 h-full '>
+      <div className="col-span-12 lg:col-span-2 lg:border-r flex h-full border-0 border-theme-border-color">
+        <div className='hidden lg:flex flex-col items-center py-3 gap-3 min-w-[15%] h-full border-r border-theme-border-color'>
+          <ExtensionIcon  fontSize='small'/>
+          <TerminalIcon htmlColor='#fff' fontSize='small' />
+          <ForumIcon fontSize='small' />
+        </div>
+        <div className='w-full lg:max-w-[85%]'>
+           {
           aboutPageMenus.map((menu,index)=>{
             return (
               <Accordion key={index} defaultExpanded>
@@ -106,14 +126,55 @@ const AboutPage = () => {
                   <AccordionDetails>
                     <ul>
                       {menu.submenu.map((submenu,index)=>{
+                        
                       return  <li key={index}>
+                        {
+                          submenu.submenu ? 
+                           <Accordion key={index} >
+                                  <AccordionSummary
+                                    expandIcon={svgIcon}
+                                    aria-controls={submenu.name}
+                                    id={submenu.name}
+                                  >
+                                    {/* <Typography component="span" >{submenu.name}</Typography> */}
+                                     <NavLink 
+                                            to={submenu.routingLink} title={submenu.name} className={"ml-1"}
+                                            onClick={()=>submenu.disableRouting?'' :handleActiveMenu(submenu.name)} 
+                                          > <Typography component="span" >{submenu.name}</Typography></NavLink>
+                                  </AccordionSummary>
+                                  <AccordionDetails>
+                                    <ul>
+                                      {submenu.submenu.map((m,index)=>{
+                                        
+                                      return  <li key={index}>
+                                        {
+                                          <NavLink 
+                                            to={m.routingLink} title={m.name}
+                                            onClick={()=>m.disableRouting?'' :handleActiveMenu(m.name)} 
+                                          >
+                                            {/* <FolderIcon fontSize="sm" htmlColor={submenu.iconColor} />  */}
+                                            {m.icon}
+                                              {" "+m.name}
+                                          </NavLink>
+                                        }
+                                          
+                                        </li>
+                                        
+                                      })}
+                                    </ul>
+                                  </AccordionDetails>  
+                              </Accordion>
+                          :
                           <NavLink 
                             to={submenu.routingLink} title={submenu.name}
                             onClick={()=>submenu.disableRouting?'' :handleActiveMenu(submenu.name)} 
                           >
-                            <FolderIcon fontSize="sm" htmlColor={submenu.iconColor} /> 
+                            {/* <FolderIcon fontSize="sm" htmlColor={submenu.iconColor} />  */}
+                            {submenu.icon}
                               {" "+submenu.name}
                           </NavLink>
+                        }
+                          
                         </li>
                         
                       })}
@@ -123,40 +184,45 @@ const AboutPage = () => {
             )
           })
         }
-      </div>  
-    </div>
-    <div className="flex-1 flex flex-column">
-      {
-        activeMenus.length ?
-         <div className='flex border-b border-theme-border-color'>
-          {activeMenus.map((menu,index)=>{
-            return(<>
-              <div key={index} className="px-3 py-2 h-[47px] flex items-center justify-between  border-r border-theme-border-color sub-menu-item">
-                  <Link to={menu}>{menu}</Link> &nbsp; <span onClick={()=>closeTabMenu({menu})} className='close-btn'>x</span>
-              </div>
-            </>)
-          })}
-                   
-      </div>  :''
-      }
-      <div className='grid grid-cols-2 h-full overflow-auto'>
-        <div className='col-span-2 p-1 overflow-auto flex lg:col-span-1 border-r border-theme-border-color' style={{maxHeight : "calc(100% +2px)"}} ref={definitionContainer}>
-            <div className='min-w-10 text-center me-2 bg-black-200 bg-[#0107164d]'>
-              <ul>
-                {pageLines.map((i)=><li key={i}>{i}</li>)}
-              </ul>
-            </div>
-            <Outlet></Outlet>
-
-      </div>   
-
+        </div>
       </div>
-    </div>
+      <div className='col-span-12 lg:col-span-10 flex lg:flex-col  overflow-hidden'>
+              {
+                      activeMenus.length ?
+                      <div className='flex border-b w-full border-theme-border-color'>
+                        {activeMenus.map((menu,index)=>{
+                          return(<>
+                            <div key={index} className="px-3 py-2 h-[47px] flex items-center justify-between  border-r border-theme-border-color sub-menu-item">
+                                <Link to={menu}>{menu}</Link> &nbsp; <span onClick={()=>closeTabMenu({menu})} className='close-btn'>x</span>
+                            </div>
+                          </>)
+                        })}
+                                
+                    </div>  :''
+                    }
+
+                     <div className="flex flex-1 grid grid-cols-2 overflow-hidden">
+                      <div className="col-span-2 lg:col-span-1  lg:border-r borde-0 border-theme-border-color flex overflow-auto  " ref={definitionContainer}>
+                         <div className='min-w-10 text-center me-2 bg-black-200 h-full bg-[#0107164d]'>
+                            <ul>
+                              {pageLines.map((i)=><li key={i}>{i}</li>)}
+                            </ul>
+                          </div>
+                        <div>
+                          <Outlet></Outlet>
+                        </div>
+                      </div>
+                      <div className="col-span-2 lg:col-span-1 p-2">Div 2</div>
+                    </div>
+       </div>
 
    </div>
+   
    
    </>
   )
 }
 
 export default AboutPage
+
+
